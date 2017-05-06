@@ -23,7 +23,7 @@ class App extends React.Component {
          image={{ uri: item.uri }}
        >
        <Text style={{ marginBottom: 10 }}>Feed comes here</Text>
-       <Button icon={{ name: 'Press' }} backgroundColor='#03A9F4' title="View Now" />
+       <Button icon={{ name: 'cloud' }} backgroundColor='#03A9F4' title="View Now" />
        </Card>
      );
    }
