@@ -1,8 +1,7 @@
 import Expo from 'expo';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
-
+import { Card, Button } from 'react-native-elements';
 import Stash from './src/Stash';
 
 const DATA = [
@@ -19,7 +18,13 @@ const DATA = [
 class App extends React.Component {
    renderCard(item) {
      return (
-       <Text>{item.text}</Text>
+       <Card key={item.id}
+         title={item.text}
+         image={{ uri: item.uri }}
+       >
+       <Text style={{ marginBottom: 10 }}>Feed comes here</Text>
+       <Button icon={{ name: 'Press' }} backgroundColor='#03A9F4' title="View Now" />
+       </Card>
      );
    }
 
