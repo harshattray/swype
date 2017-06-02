@@ -16,7 +16,7 @@ class Stash extends Component {
         position.setValue({
           x: gesture.dx,
           y: gesture.dy,
-        })
+        });
       },
       onPanResponderRelease: () => {}
 
@@ -25,27 +25,31 @@ class Stash extends Component {
   }
 
   getCardStyle() {
+    const { position } = this.state;
+    const rotate = position.x.interpolate({
+      inputRange: [-500, 0, 500],
+      outputRange: ['-120deg', '0deg', '120deg']
+    });
     return {
-      ...this.state.position.getLayout(),
-      transform: [{
-        rotate: '45deg'
-      }]
-    }
+      ...position.getLayout(),
+      transform: [{ rotate }]
+    };
   }
 
   renderCards() {
-    return this.props.data.map((item,index) => {
-      if (index === 0){
+    return this.props.data.map((item, index) => {
+      if (index === 0) {
         return (
-          <Animated.View key={item.id}
+          <Animated.View
+            key={item.id}
             style={this.getCardStyle()}
             {...this.state.panResponder.panHandlers}
-            >
+          >
             {this.props.renderCard(item)}
           </Animated.View>
         );
       }
-      return this.props.renderCard(item)
+      return this.props.renderCard(item);
     });
   }
   render() {
