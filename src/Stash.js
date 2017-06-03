@@ -8,10 +8,14 @@ import {
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
 const SWIPE_THRESHOLD = 0.5 * Dimensions.get('window').width;
-const SWIPE_DURATION = 250
+const SWIPE_DURATION = 250;
 
 
 class Stash extends Component {
+  static defaultProps = {
+    onSwipeLeft: () => {},
+    onSwipeRight: () => {}
+  }
   constructor(props) {
     super(props);
     const position = new Animated.ValueXY();
