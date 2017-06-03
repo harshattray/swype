@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SWIPE_THRESHOLD = 0.5 *  Dimensions.get('window').width;
+const SWIPE_THRESHOLD = 0.5 * Dimensions.get('window').width;
 const SWIPE_DURATION = 250
 
 
@@ -26,10 +26,10 @@ class Stash extends Component {
       },
       onPanResponderRelease: (event, gesture) => {
         if(gesture.dx> SWIPE_THRESHOLD){
-          this.forceRight();
+          this.forceRight('right');
         }
         else if (gesture.dx < -SWIPE_THRESHOLD) {
-          this.forceLeft();
+          this.forceLeft('left');
         }
         else {
           this.resetCard();
@@ -55,15 +55,10 @@ class Stash extends Component {
       toValue: { x: 0, y: 0 }
     }).start();
   }
-  forceRight(){
+  forceRight(direction) {
+    const flow = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
     Animated.timing(this.state.position, {
-      toValue: { x: SCREEN_WIDTH, y: 0 },
-      duration: SWIPE_DURATION
-    }).start();
-  }
-  forceLeft(){
-    Animated.timing(this.state.position, {
-      toValue: { x: -SCREEN_WIDTH, y: 0 },
+      toValue: { x: flow, y: 0 },
       duration: SWIPE_DURATION
     }).start();
   }
