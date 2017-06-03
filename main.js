@@ -27,11 +27,21 @@ class App extends React.Component {
        </Card>
      );
    }
+   renderNoMoreCards(){
+     return(
+       <Card title="Jig's up!!">
+         <Text style={{ marginBottom: 10}}>
+           Nothing left to swipe
+         </Text>
+         <Button backgroundColor="#03A9F4" title="Get more"></Button>
+       </Card>
+     );
+   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Stash data={DATA} renderCard={this.renderCard} />
+        <Stash data={DATA} renderCard={this.renderCard} renderNoMoreCards ={this.renderNoMoreCards} />
       </View>
     );
   }
