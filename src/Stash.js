@@ -7,6 +7,9 @@ import {
 } from 'react-native';
 
 const SCREEN_WIDTH = Dimensions.get('window').width;
+const SWIPE_THRESHOLD = 0.5 *  Dimensions.get('window').width;
+const SWIPE_DURATION = 250
+
 
 class Stash extends Component {
   constructor(props) {
@@ -21,12 +24,21 @@ class Stash extends Component {
           y: gesture.dy,
         });
       },
-      onPanResponderRelease: () => {
-        this.resetCard();
+      onPanResponderRelease: (event, gesture) => {
+        if(gesture.dx> SWIPE_THRESHOLD){
+          this.forceRight();
+        }
+        else if (gesture.dx < -SWIPE_THRESHOLD) {
+          this.forceLeft();
+        }
+        else {
+          this.resetCard();
+        }
       }
     });
     this.state = { panResponder, position };
   }
+
   getCardStyle() {
     const { position } = this.state;
     const rotate = position.x.interpolate({
@@ -43,7 +55,18 @@ class Stash extends Component {
       toValue: { x: 0, y: 0 }
     }).start();
   }
-
+  forceRight(){
+    Animated.timing(this.state.position, {
+      toValue: { x: SCREEN_WIDTH, y: 0 },
+      duration: SWIPE_DURATION
+    }).start();
+  }
+  forceLeft(){
+    Animated.timing(this.state.position, {
+      toValue: { x: -SCREEN_WIDTH, y: 0 },
+      duration: SWIPE_DURATION
+    }).start();
+  }
   renderCards() {
     return this.props.data.map((item, index) => {
       if (index === 0) {
