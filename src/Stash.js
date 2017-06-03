@@ -25,18 +25,23 @@ class Stash extends Component {
         });
       },
       onPanResponderRelease: (event, gesture) => {
-        if(gesture.dx> SWIPE_THRESHOLD){
-          this.forceRight('right');
+        if (gesture.dx > SWIPE_THRESHOLD) {
+          this.forceSwipeDirection('right');
         }
         else if (gesture.dx < -SWIPE_THRESHOLD) {
-          this.forceLeft('left');
+          this.forceSwipeDirection('left');
         }
         else {
           this.resetCard();
         }
       }
     });
-    this.state = { panResponder, position };
+    this.state = { panResponder, position, index: 0 };
+  }
+  onSwipeCompl(direction) {
+   const { onSwipeLeft, onSwipeRight } = this.props;
+   const item = this.props.data[this.state.index];
+   direction === 'right' ? onSwipeRight(item) : onSwipeLeft(item);
   }
 
   getCardStyle() {
@@ -55,13 +60,14 @@ class Stash extends Component {
       toValue: { x: 0, y: 0 }
     }).start();
   }
-  forceRight(direction) {
+  forceSwipeDirection(direction) {
     const flow = direction === 'right' ? SCREEN_WIDTH : -SCREEN_WIDTH;
     Animated.timing(this.state.position, {
       toValue: { x: flow, y: 0 },
       duration: SWIPE_DURATION
-    }).start();
+    }).start(() => this.onSwipeCompl(direction));
   }
+
   renderCards() {
     return this.props.data.map((item, index) => {
       if (index === 0) {
