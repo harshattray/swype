@@ -1,1 +1,1 @@
-# swype Shell built on native
+# swipeable cards shell built on react-native and Expo
