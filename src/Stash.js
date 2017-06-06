@@ -103,7 +103,7 @@ class Stash extends Component {
           {this.props.renderCard(item)}
         </View>
       );
-    });
+    }).reverse();
   }
   render() {
     return (
@@ -117,7 +117,9 @@ class Stash extends Component {
 const styles = {
   cardStyle: {
     position: 'absolute',
-    width: SCREEN_WIDTH
+    width: SCREEN_WIDTH,
+    elevation: 1,
+    zIndex: 1
   }
 };
 
