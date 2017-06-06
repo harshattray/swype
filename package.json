@@ -3,13 +3,6 @@
   "version": "0.0.0",
   "description": "Swipeable cards shell built on react-native",
   "author": "Harsha Attray",
-  "contributors": [{
-      "name": "Harsha Attray",
-    }],
-    "repository": {
-      "type": "git",
-      "url": "https://github.com/harshattray/swype.git"
-    }
   "private": true,
   "main": "main.js",
   "dependencies": {

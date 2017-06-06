@@ -91,14 +91,18 @@ class Stash extends Component {
         return (
           <Animated.View
             key={item.id}
-            style={this.getCardStyle()}
+            style={[this.getCardStyle(), styles.cardStyle]}
             {...this.state.panResponder.panHandlers}
           >
             {this.props.renderCard(item)}
           </Animated.View>
         );
       }
-      return this.props.renderCard(item);
+      return (
+        <View style={styles.cardStyle} key={item.id}>
+          {this.props.renderCard(item)}
+        </View>
+      );
     });
   }
   render() {
@@ -109,5 +113,12 @@ class Stash extends Component {
     );
   }
 }
+
+const styles = {
+  cardStyle: {
+    position: 'absolute',
+    width: SCREEN_WIDTH
+  }
+};
 
 export default Stash;
